@@ -40,6 +40,11 @@ namespace WaterProject
 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            //This line says 'when we are talking about Basket, we are referring to SessionBasket, which is either the already existing basket or if there is not one, it creates one'
+            services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
