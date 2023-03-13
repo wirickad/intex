@@ -20,6 +20,7 @@ namespace WaterProject.Models
         }
 
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Donation> Donations { get; set; }
 
     }
 }
