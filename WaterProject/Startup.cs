@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WaterProject.Models;
-
+using MySql.EntityFrameworkCore;
 namespace WaterProject
 {
     public class Startup
@@ -31,7 +31,7 @@ namespace WaterProject
 
             services.AddDbContext<WaterProjectContext>(options =>
            {
-               options.UseSqlite(Configuration["ConnectionStrings:WaterDBConnection"]);
+               options.UseMySQL(Configuration["ConnectionStrings:WaterDBConnection"]);
            });
 
 

@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 namespace WaterProject.Migrations
 {
-    public partial class AddDonationTable : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +12,7 @@ namespace WaterProject.Migrations
                 columns: table => new
                 {
                     DonationId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     AddressLine1 = table.Column<string>(nullable: false),
                     AddressLine2 = table.Column<string>(nullable: true),
@@ -28,11 +29,29 @@ namespace WaterProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    ProjectId = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ProjectName = table.Column<string>(nullable: true),
+                    ProjectType = table.Column<string>(nullable: true),
+                    ProjectRegionalProgram = table.Column<string>(nullable: true),
+                    ProjectImpact = table.Column<int>(nullable: false),
+                    ProjectPhase = table.Column<string>(nullable: true),
+                    ProjectFunctionalityStatus = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BasketLineItem",
                 columns: table => new
                 {
                     LineID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     ProjectId = table.Column<int>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
                     DonationId = table.Column<int>(nullable: true)
@@ -72,6 +91,9 @@ namespace WaterProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Donations");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
         }
     }
 }
